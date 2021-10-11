@@ -51,6 +51,45 @@
           }
         }
       }
+    },
+    "cdk-pipeline": {
+      "projectType": "application",
+      "root": "apps/cdk-pipeline",
+      "sourceRoot": "apps/cdk-pipeline/src",
+      "targets": {
+        "bootstrap": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/cdk-pipeline",
+            "cloudformation-execution-policies": "arn:aws:iam::aws:policy/AdministratorAccess aws://$AWS_ACCOUNT_ID/$AWS_REGION",
+            "command": "cdk bootstrap"
+          }
+        },
+        "deploy": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/cdk-pipeline",
+            "command": "cdk deploy --all",
+            "app": "'ts-node -r tsconfig-paths/register src/main.ts'"
+          }
+        },
+        "destroy": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/cdk-pipeline",
+            "command": "cdk destroy --all",
+            "app": "'ts-node -r tsconfig-paths/register src/main.ts'"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/cdk-pipeline"],
+          "options": {
+            "jestConfig": "apps/cdk-pipeline/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

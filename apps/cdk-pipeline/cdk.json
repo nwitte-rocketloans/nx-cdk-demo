@@ -1,0 +1,8 @@
+{
+  "output": "../../dist/apps/cdk-pipeline",
+  "context": {
+    "@aws-cdk/core:enableStackNameDuplicates": true,
+    "aws-cdk:enableDiffNoFail": true,
+    "@aws-cdk/core:newStyleStackSynthesis": true
+  }
+}

@@ -3,6 +3,8 @@ import { Artifact } from '@aws-cdk/aws-codepipeline';
 import { GitHubSourceAction } from '@aws-cdk/aws-codepipeline-actions';
 import { CdkPipeline, SimpleSynthAction } from '@aws-cdk/pipelines';
 import { LinuxBuildImage, ComputeType } from '@aws-cdk/aws-codebuild';
+import { AppStage } from './app-stage';
+import { env } from './global-config';
 
 export class AppStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -46,5 +48,7 @@ export class AppStack extends Stack {
       synthAction,
       selfMutating: true,
     });
+
+    pipeline.addApplicationStage(new AppStage(this, 'AppStage', { env }));
   }
 }

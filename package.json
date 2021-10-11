@@ -19,7 +19,11 @@
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.91.0",
+    "@aws-cdk/aws-codebuild": "1.91.0",
+    "@aws-cdk/aws-codepipeline": "1.91.0",
+    "@aws-cdk/aws-codepipeline-actions": "1.91.0",
     "@aws-cdk/core": "1.91.0",
+    "@aws-cdk/pipelines": "1.91.0",
     "@myin/aws-cdk": "^0.0.7",
     "@nestjs/schematics": "^7.0.0",
     "@nestjs/testing": "^7.0.0",

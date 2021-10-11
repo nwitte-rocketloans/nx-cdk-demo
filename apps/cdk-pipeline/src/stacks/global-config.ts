@@ -1,3 +1,4 @@
 export const env = {
-  region: 'us-west-2',
+  account: process.env.AWS_ACCOUNT_ID,
+  region: process.env.AWS_REGION,
 };

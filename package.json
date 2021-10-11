@@ -5,7 +5,8 @@
   "scripts": {
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "test": "nx test",
+    "docker:build": "docker build -t nx-cdk-demo:latest ."
   },
   "private": true,
   "dependencies": {

@@ -1,0 +1,28 @@
+{
+    "dockerComposeFile": ["../docker-compose.yml"],
+    "initializeCommand": "npm run docker:build",
+    "postStartCommand": "yarn",
+    "service": "nx-cdk-demo",
+    "workspaceFolder": "/src",
+    "extensions": [
+      "dbaeumer.vscode-eslint",
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode",
+      "firsttris.vscode-jest-runner",
+      "formulahendry.auto-rename-tag",
+      "ms-azuretools.vscode-docker",
+      "nrwl.angular-console",
+      "redhat.vscode-yaml",
+      "stylelint.vscode-stylelint",
+      "wayou.vscode-todo-highlight"
+    ],
+    "settings": {
+      "editor.tabSize": 2,
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.codeActionsOnSave": {
+        "source.fixAll": true
+      },
+      "todohighlight.keywords": ["TODO:", "QUESTION:"]
+    }
+  }

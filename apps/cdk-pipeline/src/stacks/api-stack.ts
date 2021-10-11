@@ -16,7 +16,7 @@ export class ApiStack extends Stack {
     const directory = path.join(
       __dirname,
       '../../../..',
-      'dist/apps/api/lambda'
+      'dist/apps/api-lambda'
     );
 
     const code = DockerImageCode.fromImageAsset(directory);

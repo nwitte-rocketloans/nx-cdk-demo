@@ -16,7 +16,7 @@ export class AppStack extends Stack {
     const githubSourceAction = new GitHubSourceAction({
       actionName: 'GitHub',
       output: sourceArtifact,
-      oauthToken: SecretValue.secretsManager(process.env.GITHUB_SECRET_NAME),
+      oauthToken: SecretValue.secretsManager('GITHUB_SECRET_PAT'),
       owner: 'nwitte-rocketloans',
       repo: 'nx-cdk-demo',
       branch: 'main',
@@ -49,6 +49,8 @@ export class AppStack extends Stack {
       selfMutating: true,
     });
 
-    pipeline.addApplicationStage(new AppStage(this, 'AppStage', { env }));
+    const stage = new AppStage(this, 'AppStage', { env });
+
+    pipeline.addApplicationStage(stage);
   }
 }

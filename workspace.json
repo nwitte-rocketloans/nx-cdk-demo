@@ -29,6 +29,56 @@
             }
           }
         },
+        "build-container": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/api-lambda",
+            "main": "apps/api/src/lambda.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "prepare-docker": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              {
+                "command": "nx build-container api"
+              },
+              {
+                "command": "cp -fv package.json yarn.lock apps/api/Dockerfile dist/apps/api-lambda/"
+              }
+            ],
+            "parallel": false
+          },
+          "outputs": ["dist/apps/api-lambda"]
+        },
+        "build-docker": {
+          "builder": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [
+              { "command": "nx prepare-docker api" },
+              {
+                "command": "docker build -t nx-cdk-demo-api:$SOURCE_ACTION_COMMIT_ID ./dist/apps/api-lambda"
+              }
+            ],
+            "parallel": false
+          }
+        },
         "serve": {
           "executor": "@nrwl/node:execute",
           "options": {
@@ -63,6 +113,23 @@
             "cwd": "apps/cdk-pipeline",
             "cloudformation-execution-policies": "arn:aws:iam::aws:policy/AdministratorAccess aws://$AWS_ACCOUNT_ID/$AWS_REGION",
             "command": "cdk bootstrap"
+          }
+        },
+        "build": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "commands": [{ "command": "nx prepare-docker api" }],
+            "parallel": false
+          }
+        },
+        "synth": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "cwd": "apps/cdk-pipeline",
+            "command": "cdk synth",
+            "lookups": false,
+            "strict": true,
+            "app": "'ts-node -r tsconfig-paths/register src/main.ts'"
           }
         },
         "deploy": {

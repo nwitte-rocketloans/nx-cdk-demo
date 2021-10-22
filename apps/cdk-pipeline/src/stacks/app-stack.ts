@@ -23,16 +23,15 @@ export class AppStack extends Stack {
     const synth = new ShellStep('Synth', {
       input,
       commands: [
-        // 'echo $SOURCE_COMMIT_ID',
         'yarn install --frozen-lockfile',
         'yarn nx run cdk-pipeline:build',
         'yarn nx run cdk-pipeline:synth',
         'printenv',
       ],
       primaryOutputDirectory: 'dist/apps/cdk-pipeline',
-      // env: {
-      //   SOURCE_COMMIT_ID: input.primaryOutput.id,
-      // },
+      env: {
+        SOURCE_COMMIT_ID: input.id,
+      },
     });
 
     const pipeline = new CodePipeline(this, 'CodePipeline', {

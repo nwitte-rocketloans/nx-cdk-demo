@@ -112,7 +112,8 @@
           "options": {
             "cwd": "apps/cdk-pipeline",
             "cloudformation-execution-policies": "arn:aws:iam::aws:policy/AdministratorAccess aws://$AWS_ACCOUNT_ID/$AWS_REGION",
-            "command": "cdk bootstrap"
+            "command": "cdk bootstrap",
+            "profile": "pipelines-account"
           }
         },
         "build": {
@@ -129,7 +130,8 @@
             "command": "cdk synth",
             "lookups": false,
             "strict": true,
-            "app": "'ts-node -r tsconfig-paths/register src/main.ts'"
+            "app": "'ts-node -r tsconfig-paths/register src/main.ts'",
+            "profile": "pipelines-account"
           }
         },
         "deploy": {
@@ -137,7 +139,8 @@
           "options": {
             "cwd": "apps/cdk-pipeline",
             "command": "cdk deploy --all",
-            "app": "'ts-node -r tsconfig-paths/register src/main.ts'"
+            "app": "'ts-node -r tsconfig-paths/register src/main.ts'",
+            "profile": "pipelines-account"
           }
         },
         "destroy": {
@@ -145,7 +148,8 @@
           "options": {
             "cwd": "apps/cdk-pipeline",
             "command": "cdk destroy --all",
-            "app": "'ts-node -r tsconfig-paths/register src/main.ts'"
+            "app": "'ts-node -r tsconfig-paths/register src/main.ts'",
+            "profile": "pipelines-account"
           }
         },
         "test": {

@@ -27,11 +27,7 @@ export class AppStack extends Stack {
         'yarn nx run cdk-pipeline:build',
         'yarn nx run cdk-pipeline:synth',
       ],
-      primaryOutputDirectory: path.join(
-        __dirname,
-        '../../../..',
-        'dist/apps/cdk-pipeline/cdk.out'
-      ),
+      primaryOutputDirectory: 'dist/apps/cdk-pipeline/cdk.out',
     });
 
     const pipeline = new CodePipeline(this, 'CodePipeline', {

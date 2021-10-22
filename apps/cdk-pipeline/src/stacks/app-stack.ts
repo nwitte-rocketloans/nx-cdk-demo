@@ -30,7 +30,7 @@ export class AppStack extends Stack {
       ],
       primaryOutputDirectory: 'dist/apps/cdk-pipeline',
       env: {
-        SOURCE_COMMIT_ID: input.id,
+        SOURCE_COMMIT_ID: input.primaryOutput.id,
       },
     });
 
